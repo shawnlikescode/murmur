@@ -8,6 +8,7 @@ export default defineConfig({
   manifest: {
     permissions: ['storage', 'activeTab', "scripting", "contextMenus"],
     optional_host_permissions: ["*://*/*"],
+    action: {}
   },
 
   hooks: {
