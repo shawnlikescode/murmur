@@ -16,10 +16,17 @@
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.1.3",
+    "@radix-ui/react-dialog": "^1.1.6",
+    "@radix-ui/react-label": "^2.1.2",
+    "@radix-ui/react-popover": "^1.1.6",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-slider": "^1.2.3",
     "@radix-ui/react-slot": "^1.1.2",
+    "@radix-ui/react-tooltip": "^1.1.8",
     "@tailwindcss/postcss": "^4.0.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "1.0.0",
     "lucide-react": "^0.475.0",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
@@ -31,11 +38,13 @@
     "webext-permission-toggle": "^6.0.1"
   },
   "devDependencies": {
+    "@thedutchcoder/postcss-rem-to-px": "^0.0.2",
     "@types/chrome": "^0.0.280",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "@wxt-dev/module-react": "^1.1.2",
     "typescript": "^5.6.3",
     "wxt": "^0.19.13"
-  }
+  },
+  "packageManager": "bun@1.2.3"
 }

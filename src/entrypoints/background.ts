@@ -13,4 +13,18 @@ export default defineBackground(() => {
       speechSynthesis.speak(utterance);
     }
   });
+
+  browser.contextMenus.create({
+      id: "read-selection",
+      title: "Read Selection",
+      contexts: ["selection"]
+    });
+
+  browser.contextMenus.onClicked.addListener((info, tab) => {
+    if (info.menuItemId === "read-selection" && info.selectionText) {
+      
+    }
+  });
+
+
 });

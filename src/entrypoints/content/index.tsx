@@ -1,7 +1,27 @@
-import "@/assets/style.css"
+import TTSReader from "@/components/tts-reader";
+import "@/globals.css"
 import ReactDOM from "react-dom/client"
-import App from "./App"
+import React from "react";
 
+export const PortalContext = React.createContext<HTMLElement | null>(null);
+
+const ContentRoot = () => {
+  // Radix UI Portal
+  // Some components will not render in the shadow root, so you need to create a portal
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(
+    null,
+  );
+
+  return (
+    <React.StrictMode>
+      <PortalContext.Provider value={portalContainer}>
+        <div ref={setPortalContainer} id="mur-mur-container">
+          <TTSReader />
+        </div>
+      </PortalContext.Provider>
+    </React.StrictMode>
+  );
+};
 export default defineContentScript({
     matches: ['<all_urls>'],
     cssInjectionMode: "ui",
@@ -12,25 +32,20 @@ export default defineContentScript({
       
       const ui = await createShadowRootUi(ctx, {
           name: "mur-mur",
-          position: "overlay",
+          position: "inline",
           anchor: "body",
-          append: "first",
           onMount: (container) => {
-              console.log("UI mounting...")
-              const wrapper = document.createElement("div")
-              wrapper.style.position = "fixed"
-              wrapper.style.bottom = "20px"
-              wrapper.style.right = "20px"
-              wrapper.style.zIndex = "999999"
-              container.appendChild(wrapper)
-              const root = ReactDOM.createRoot(wrapper)
-              root.render(<App />)
-              return {root, wrapper}
+            console.log("UI mounting...")
+              const app = document.createElement('div');
+              container.appendChild(app);
+                // Create a root on the UI container and render a component
+                const root = ReactDOM.createRoot(app);
+                root.render(<ContentRoot />);
+                return root;
           },
-          onRemove: (elements) => {
-              if (elements) {
-                  elements.root.unmount()
-                  elements.wrapper.remove()
+          onRemove: (root) => {
+              if (root) {
+                root.unmount()
               }
           }
       })
@@ -40,3 +55,5 @@ export default defineContentScript({
       console.log("UI mounted!")
   },
 });
+
+
