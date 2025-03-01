@@ -33,8 +33,8 @@ export function Panel({
     <div
       className={cn(
         "fixed bg-background rounded-lg shadow-lg border",
-        "transition-[width,transform,opacity] duration-300 ease-out",
-        "h-12",
+        "transition-[width,transform,opacity,height] duration-300 ease-out",
+        isOpen ? "h-12" : "h-12",
         position === "top" ? "top-6" : "bottom-6",
         side === "left" 
           ? "left-6" 
@@ -105,7 +105,6 @@ export function Panel({
           </div>
         )}
         
-        {/* Provide panel state via context */}
         <PanelContext.Provider value={{ isOpen, isHovered, setIsOpen, side }}>
           {children}
         </PanelContext.Provider>
@@ -129,6 +128,7 @@ interface PanelContentProps {
 export function PanelContent({ children }: PanelContentProps) {
   const { isOpen, isHovered, side } = usePanelContext()
   
+  // Early return with no children when closed
   if (!isOpen) {
     return null
   }

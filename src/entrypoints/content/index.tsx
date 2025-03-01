@@ -22,37 +22,32 @@ const ContentRoot = () => {
     </React.StrictMode>
   );
 };
+
 export default defineContentScript({
     matches: ['<all_urls>'],
     cssInjectionMode: "ui",
 
   
   async main(ctx) {
-      console.log("Content script starting...")
-      
-      const ui = await createShadowRootUi(ctx, {
-          name: "mur-mur",
-          position: "inline",
-          anchor: "body",
-          onMount: (container) => {
-            console.log("UI mounting...")
-              const app = document.createElement('div');
-              container.appendChild(app);
-                // Create a root on the UI container and render a component
-                const root = ReactDOM.createRoot(app);
-                root.render(<ContentRoot />);
-                return root;
-          },
-          onRemove: (root) => {
-              if (root) {
-                root.unmount()
-              }
-          }
-      })
+    const ui = await createShadowRootUi(ctx, {
+      name: "mur-mur",
+      position: "inline",
+      anchor: "body",
+      onMount: (container) => {
+        const app = document.createElement('div');
+        container.appendChild(app);
+        const root = ReactDOM.createRoot(app);
+        root.render(<ContentRoot />);
+        return root;
+      },
+      onRemove: (root) => {
+        if (root) {
+          root.unmount()
+        }
+      }
+    })
 
-      console.log("Mounting UI...")
-      ui.mount()
-      console.log("UI mounted!")
+    ui.mount()
   },
 });
 

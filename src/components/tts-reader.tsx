@@ -1,9 +1,8 @@
 import * as React from "react"
 import { TTSPlayButton, TTSExpandedControls } from "./tts/controls"
 import { Panel, PanelTrigger, PanelContent, usePanelContext } from "@/components/ui/panel"
-import { cn } from "@/lib/utils"
 
-// Component for the expanded content with proper alignment
+// Component for the expanded content with proper alignment - uses context, not props
 function ExpandedContent() {
   const { side } = usePanelContext()
   const isLeftSide = side === "left"
@@ -27,6 +26,7 @@ function ExpandedContent() {
   )
 }
 
+// Main TTS Reader component
 export default function TTSReader() {
   return (
     <Panel side="right" position="bottom">
